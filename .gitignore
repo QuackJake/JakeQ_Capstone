@@ -151,6 +151,9 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+/pyvenv.cfg
+src/configs/
+
 # Cython debug symbols
 cython_debug/
 
