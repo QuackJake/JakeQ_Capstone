@@ -152,7 +152,7 @@ dmypy.json
 .pytype/
 
 /pyvenv.cfg
-src/configs/
+/src/configs/
 
 # Cython debug symbols
 cython_debug/
