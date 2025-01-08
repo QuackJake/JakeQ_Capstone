@@ -1,0 +1,349 @@
+Extracted from: test.pdf
+Total pages: 9
+
+--- Page 1 ---
+Created by Reddit user /u/jrobharing, edited & added to by Reddit user /u/Inalisk. Additional content created by /u/Shinotama. 
+ 
+Blacksmith/Armory 
+Item Name Cost 
+(Normal) 
+Cost 
+(Cheap) 
+Cost 
+(Expensive) 
+Limited 
+Stock 
+Rural 
+Locale 
+Urban 
+Locale 
+Premium 
+Locale 
+[Armor]        
+Light Armor        
+Studded Leather 45 gp 33 gp 68 gp    X 
+Medium Armor        
+Chain Shirt 50 gp 38 gp 75 gp X X X X 
+Scale Mail 50 gp 38 gp 75 gp   X X 
+Breastplate 400 gp 300 gp 600 gp X X X X 
+Half Plate 750 gp 562 gp 1125 gp    X 
+Heavy Armor        
+Ring Mail 30 gp 22 gp 45 gp  X X X 
+Chain Mail 75 gp 56 gp 113 gp X X X X 
+Splint 200 gp 150 gp 300 gp   X X 
+Plate 1500 gp 1125 gp 2250 gp    X 
+Shield        
+Shield 10 gp 7 gp 15 gp X X X X 
+[Weapons]        
+Simple Melee Weapons        
+Dagger 2 gp 1 gp 3 gp X X X X 
+Handaxe 5 gp 3 gp 8 gp X X X X 
+Javelin 5 gp 3 gp 8 gp   X X 
+Light Hammer 2 gp 1 gp 3 gp   X X 
+Mace 5 gp 3 gp 8 gp  X X X 
+Sickle 1 gp 7 sp 2 gp   X X 
+Spear 1 gp 7 sp 2 gp X X X X 
+Martial Melee Weapons        
+Battleaxe 10 gp 7 gp 15 gp X X X X 
+Flail 10 gp 7 gp 15 gp   X X 
+Glaive 20 gp 15 gp 30 gp   X X 
+Greataxe 30 gp 22 gp 45 gp  X X X 
+Greatsword 50 gp 38 gp 75 gp X X X X 
+Halberd 20 gp 15 gp 30 gp   X X 
+Lance 10 gp 7 gp 15 gp    X 
+Longsword 15 gp 11 gp 22 gp X X X X 
+Maul 10 gp 7 gp 15 gp   X X 
+Morningstar 15 gp 11 gp 22 gp   X X 
+Pike 5 gp 3 gp 8 gp  X X X 
+Rapier 25 gp 18 gp 38 gp    X 
+Scimitar 25 gp 18 gp 38 gp   X X 
+Shortsword 10 gp 7 gp 15 gp X X X X 
+Trident 5 gp 3 gp 8 gp    X 
+War Pick 5 gp 3 gp 8 gp   X X 
+Warhammer 15 gp 11 gp 22 gp  X X X 
+[Adventuring Gear]        
+Ball Bearings (bag of 1,000) 1 gp 7 sp 2 gp  X X X 
+Bell 1 gp 7 sp 2 gp  X X X 
+Block and Tackle 1 gp 7 sp 2 gp   X X 
+Chain (10 feet) 5 gp 3 gp 8 gp X X X X 
+Crowbar 2 gp 1 gp 3 gp X X X X 
+Grappling Hook 2 gp 1 gp 3 gp   X X 
+Hammer 1 gp 7 sp 2 gp X X X X 
+Hammer, Sledge 2 gp 1 gp 3 gp  X X X 
+Hunting Trap 5 gp 3 gp 8 gp  X X X 
+Lamp 5 sp 3 sp 8 sp  X X X 
+Lantern, Bullseye 10 gp 7 gp 15 gp    X 
+Lantern, Hooded 5 gp 3 gp 8 gp   X X 
+Lock 10 gp 7 gp 15 gp  X X X 
+Manacles 2 gp 1 gp 3 gp   X X 
+Mirror, Steel 5 gp 3 gp 8 gp   X X 
+Item Name Cost 
+(Normal) 
+Cost 
+(Cheap) 
+Cost 
+(Expensive) 
+Limited 
+Stock 
+Rural 
+Locale 
+Urban 
+Locale 
+Premium 
+Locale 
+Pick, Miner's 2 gp 1 gp 3 gp  X X X 
+Piton 5 cp 3 cp 8 cp  X X X 
+Pot, Iron 2 gp 1 gp 3 gp  X X  
+Spikes, Iron 1 gp 7 sp 2 gp   X X 
+Whetstone 1 cp 1 cp 2 cp X X X X 
+[Tools]        
+Artisan's Tools        
+Carpenter's Tools 8 gp 6 gp 12 gp  X X X 
+Mason's Tools 10 gp 7 gp 15 gp   X X 
+Smith's Tools 20 gp 15 gp 30 gp X X X X 
+Tinker's Tools 50 gp 38 gp 75 gp    X 
+Musical Instrument        
+Horn 3 gp 2 gp 5 gp    X 
+Fletcher/Bowyer 
+Item Name Cost 
+(Normal) 
+Cost 
+(Cheap) 
+Cost 
+(Expensive) 
+Limited 
+Stock 
+Rural 
+Locale 
+Urban 
+Locale 
+Premium 
+Locale 
+[Weapons]        
+Simple Ranged Weapons        
+Crossbow, Light 25 gp 18 gp 38 gp  X X X 
+Shortbow 25 gp 18 gp 38 gp X X X X 
+Martial Ranged Weapons        
+Crossbow, Hand 75 gp 56 gp 113 gp   X X 
+Crossbow, Heavy 50 gp 38 gp 75 gp  X X X 
+Longbow 50 gp 38 gp 75 gp X X X X 
+[Adventuring Gear]        
+Ammunition        
+Arrows (20) 1 gp 7 sp 2 gp X X X X 
+Crossbow Bolts (20) 1 gp 7 sp 2 gp  X X X 
+Bowstring (5) 2 gp 1 gp 3 gp X X X X 
+Case, Crossbow Bolt 1 gp 7 sp 2 gp  X X X 
+Quiver 1 gp 7 sp 2 gp X X X X 
+Leatherworker 
+Item Name Cost 
+(Normal) 
+Cost 
+(Cheap) 
+Cost 
+(Expensive) 
+Limited 
+Stock 
+Rural 
+Locale 
+Urban 
+Locale 
+Premium 
+Locale 
+[Armor]        
+Light Armor        
+Leather 10 gp 7 gp 15 gp X X X X 
+Studded Leather 45 gp 33 gp 68 gp  X X X 
+Medium Armor        
+Hide 10 gp 7 gp 15 gp X X X X 
+Shield        
+Shield 10 gp 7 gp 15 gp   X X 
+[Weapons]        
+Simple Ranged Weapons        
+Sling 1 sp 7 cp 2 sp  X X X 
+[Adventuring Gear]        
+Waterskin 2 sp 1 sp 3 sp X X X X 
+[Tools]        
+Artisan's Tools        
+Cobbler's Tools 5 gp 3 gp 8 gp  X X X 
+Leatherworker's Tools 5 gp 3 gp 8 gp X X X X 
+Musical Instrument        
+Bagpipes 30 gp 22 gp 45 gp    X 
+Drum 6 gp 4 gp 9 gp   X X 
+Hard Sell (daily) at 1000 gp (Cheap: 750 gp, Expensive: 1500) 
+Selling Cap (daily) at 2000 gp (Cheap: 1500 gp, Expensive: 3000 gp) 
+Hard Sell (daily) at 500 gp (Cheap: 375 gp, Expensive: 750) 
+Selling Cap (daily) at 1000 gp (Cheap: 750 gp, Expensive: 1500 gp) 
+Hard Sell (daily) at 500 gp (Cheap: 375 gp, Expensive: 750) 
+Selling Cap (daily) at 1000 gp (Cheap: 750 gp, Expensive: 1500 gp) 
+Continued from "Blacksmith/Armory" section... 
+
+--- Page 2 ---
+Created by Reddit user /u/jrobharing, edited & added to by Reddit user /u/Inalisk. Additional content created by /u/Shinotama. 
+ 
+Temple/Faith Supplies 
+Item Name Cost 
+(Normal) 
+Cost 
+(Cheap) 
+Cost 
+(Expensive) 
+Limited 
+Stock 
+Rural 
+Locale 
+Urban 
+Locale 
+Premium 
+Locale 
+[Adventuring Gear]        
+Alms Box 5 gp 3 gp 8 gp  O O O 
+Bell 1 gp 7 sp 2 gp   X X 
+Blanket 5 sp 3 sp 8 sp  X X X 
+Book, Scripture 25 gp 18 gp 38 gp X X X X 
+Candle 1 cp 1 cp 2 cp X X X X 
+Case, Map or Scroll 1 gp 7 sp 2 gp   X X 
+Censer 5 gp 3 gp 8 gp  O O O 
+Chalk (1 piece) 1 cp 1 cp 2 cp  X X X 
+Flask 2 cp 1 cp 3 cp X X X X 
+Healer's Kit 5 gp 3 gp 8 gp   X X 
+Holy Symbol        
+Amulet 5 gp 3 gp 8 gp X X X X 
+Emblem 5 gp 3 gp 8 gp X X X X 
+Reliquary 5 gp 3 gp 8 gp X X X X 
+Holy Water (flask) 25 gp 18 gp 38 gp X X X X 
+Incense (1 block) 1 cp 1 cp 2 cp  O O O 
+Ink (1 ounce bottle) 10 gp 7 gp 15 gp   X X 
+Ink Pen (Fountain) 3 gp 2 gp 5 gp   X X 
+Lamp 5 sp 3 sp 8 sp  X X X 
+Lantern, Hooded 5 gp 3 sp 8 sp    X 
+Oil (flask) 1 sp 7 cp 2 sp X X X X 
+Paper (one sheet) 2 sp 1 sp 3 sp    X 
+Parchment (one sheet) 1 sp 7 cp 2 sp   X  
+Perfume (vial) 5 gp 3 gp 8 gp    X 
+Potion of Healing 50 gp 38 gp 75 gp    X 
+Rations (1 day) 5 sp 3 sp 8 sp  X X X 
+Torch 1 cp 1 cp 2 cp X X X X 
+Vial 1 gp 7 sp 2 gp X X X X 
+Waterskin 2 sp 1 sp 3 sp  X X X 
+[Tools]        
+Artisan's Tools        
+Calligrapher's Supplies 10 gp 7 gp 15 gp   O O 
+Herbalism Kit 5 gp 3 gp 8 gp   X X 
+Musical Instrument        
+Flute 2 gp 1 gp 3 gp    O 
+Lyre 30 gp 22 gp 45 gp    O 
+Horn 3 gp 2 gp 5 gp    O 
+[Services]        
+Spellcasting        
+Cure Wounds (lvl 1) 10 gp 7 gp 15 gp X X X X 
+Gentle Repose (lvl 2) 50 gp 38 gp 75 gp  X X X 
+Lesser Restoration (lvl 2) 50 gp 38 gp 75 gp X X X X 
+Remove Curse (lvl 3) 100 gp 75 gp 150 gp  X X X 
+Revivify (lvl 3) 400 gp 375 gp 450 gp  X X X 
+Raise Dead (lvl 5) 1000 gp 875 gp 1250 gp  X X X 
+Spellcaster Availability  
+Locale Available Spellcasters 
+Limited 1 Acolyte. No expendable components available, subtract costs of materials if provided.  Roll d%; 1-15 
+is a Commoner (either a pious merchant, or a charlatan posing as a healer) instead of an Acolyte; 80-
+100 is a Priest instead of an Acolyte, with additional hit dice and caster level equal to 1d4 -1. 
+Rural 1d4 Acolytes, and 1 Priest with additional hit dice and caster level equal to 1d4 -1. Expendable 
+components available at a 25% chance, subtract costs of materials if provided. 
+Urban 2d8+3 Acolytes, and 1d2 Priest with additional hit dice and caster level equal to 1d6 -1. Expendable 
+components available at a 55% chance, subtract costs of materials if provided.  
+Premium 3d10+2 Acolytes, and 1d4 Priests with additional hit dice and caster level equal to 1d6-1. Expendable 
+components available at a 75% chance, subtract costs of materials if provided.  
+    Book Prices (Library or Otherwise) 
+Item Name Cost 
+(Normal) 
+Cost 
+(Cheap) 
+Cost 
+(Expensive) 
+Limited 
+Stock 
+Rural 
+Locale 
+Urban 
+Locale 
+Premium 
+Locale 
+Common, Soft Bound 8 gp 6 gp 12 gp X X X  
+Common, Hard Bound 10 gp 7 gp 15 gp X X X X 
+Uncommon, Soft Bound 15 gp 11 gp 23 gp X  X X 
+Uncommon, Hard Bound 20 gp 14 sp 30 gp X  X X 
+Rare, Soft Bound 30 gp 22 gp 45 gp X   X 
+Rare, Hard Bound 50 gp 38 gp 75 gp X   X 
+ 
+General Store 
+Item Name Cost 
+(Normal) 
+Cost 
+(Cheap) 
+Cost 
+(Expensive) 
+Limited 
+Stock 
+Rural 
+Locale 
+Urban 
+Locale 
+Premium 
+Locale 
+[Adventuring Gear]        
+Abacus 2 gp 1 gp 3 gp   X X 
+Barrel 2 gp 1 gp 3 gp  X X X 
+Blanket 5 sp 3 sp 8 sp X X X X 
+Bottle, glass 2 gp 1 gp 3 gp  X X X 
+Bucket 5 cp 3 cp 8 cp  X X X 
+Candle 1 cp 1 cp 2 cp X X X X 
+Chest 5 gp 3 gp 8 gp   X X 
+Clothes, Common 5 sp 3 sp 8 sp  X X X 
+Clothes, Fine 15 gp 11 gp 23 gp    X 
+Flask or Tankard 2 cp 1 cp 3 cp X X X X 
+Ink (1 ounce bottle) 10 gp 7 gp 15 gp X X X X 
+Ink Pen (Fountain) 3 gp 2 gp 5 gp   X X 
+Journal, Soft Bound, 25 Sheets 7 gp 5 gp 11 gp  X X X 
+Jug or Pitcher 2 cp 1 cp 3 cp X X X X 
+Ladder (10-foot) 1 sp 7 cp 2 sp  X X X 
+Lantern, Hooded 5 gp 3 gp 8 gp   X X 
+Lamp 5 sp 3 sp 8 sp  X X X 
+Lock 10 gp 7 gp 15 gp   X X 
+Mess Kit 2 sp 1 sp 3 sp  X X X 
+Mirror, Steel 5 gp 3 gp 8 gp  X X X 
+Paper (one sheet) 2 sp 1 sp 3 sp   X X 
+Parchment (one sheet) 1 sp 7 cp 2 sp X X X  
+Pick, Miner's 2 gp 1 gp 3 gp  X X X 
+Pot, Iron 2 gp 1 gp 3 gp X X X X 
+Pouch 5 sp 3 sp 8 sp  X X X 
+Rope, Hempen (50 feet) 1 gp 7 sp 2 gp  X X X 
+Rope, Silk (50 feet) 10 gp 7 gp 15 gp    X 
+Sack 1 cp 1 cp 2 cp X X X X 
+Scale, Merchant's 5 gp 3 gp 8 gp   X X 
+Shovel 2 gp 1 gp 3 gp  X X X 
+Signet Ring 5 gp 3 gp 8 gp   X X 
+Soap 2 cp 1 cp 3 cp   X X 
+Vial 1 gp 7 sp 2 gp   X X 
+[Tools]        
+Artisan's Tools        
+Carpenter's Tools 8 gp 6 gp 12 gp X X X X 
+Cobbler's Tools 5 gp 3 gp 8 gp  X X X 
+Cook's Utensils 1 gp 7 sp 2 gp X X X X 
+Glassblower's Tools 30 gp 22 gp 45 gp    X 
+Leatherworker's Tools 5 gp 3 gp 8 gp   X X 
+Mason's Tools 10 gp 7 gp 15 gp X X X X 
+Potter's Tools 10 gp 7 gp 15 gp  X X X 
+Smith's Tools 20 gp 15 gp 30 gp    X 
+Weaver's Tools 1 gp 7 sp 2 gp  X X X 
+Woodcarver's Tools 1 gp 7 sp 2 gp X X X X 
+Hard Sell (daily) at 375 gp (Cheap: 281 gp, Expensive: 500) 
+Selling Cap (daily) at 750 gp (Cheap: 562 gp, Expensive: 1000 gp) 
+Trade goods accepted. 
+An "O" instead of an "X" indicates only clergy and proven devout 
+members of their associated religion may purchase these items  
+Hard Sell (daily) at 375 gp (Cheap: 281 gp, Expensive: 500) 
+Selling Cap (daily) at 750 gp (Cheap: 562 gp, Expensive: 1000 gp) 
+Trade goods accepted. 
+Not all books will be for sale. Some rarer 
+tomes, or those in private collections 
+may be more than chart prices.  
+
