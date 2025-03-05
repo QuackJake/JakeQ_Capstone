@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Specify the directory where the documents are stored
-DOCUMENT_DIR = "pdf_reader_src/legal_documents/pdf"
+DOCUMENT_DIR = "pdf_reader_src/legal_documents/fillable"
 
 @app.route('/api/documents', methods=['GET'])
 def get_documents():

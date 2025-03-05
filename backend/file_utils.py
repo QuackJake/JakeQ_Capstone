@@ -255,22 +255,11 @@ class docx_reader:
         return _wrapper
     
     @exception_wrapper
-    def get_text(self, filename):
-        """
-        Extract text from a Word document including various field types and content controls.
-        Handles Unicode characters properly.
-        
-        Args:
-            filename (str): Path to the Word document
-            
-        Returns:
-            str: Extracted text with fields and controls
-        """
+    def get_text(self, filename, write: bool = False):
         doc = Document(filename)
         fullText = []
     
         def clean_text(text):
-            """Clean and normalize text to handle Unicode characters"""
             if text is None:
                 return ""
             # Replace problematic characters or normalize them
@@ -284,19 +273,16 @@ class docx_reader:
             text = text.replace('\u201d', '"')  # Replace right double quote
             return text.strip()
         
-        # Get regular paragraph text
         for para in doc.paragraphs:
             if para.text.strip():
                 fullText.append(clean_text(para.text))
         
-        # Get table content
         for table in doc.tables:
             for row in table.rows:
                 for cell in row.cells:
                     if cell.text.strip():
                         fullText.append(clean_text(cell.text))
         
-        # Parse XML for additional elements
         docx_xml = doc._element.xml
         root = etree.fromstring(docx_xml)
         namespaces = {
@@ -365,14 +351,13 @@ class docx_reader:
         
         # Filter out empty strings and join
         filtered_text = list(filter(None, fullText))
-        
-        # Write if required
-        if hasattr(self, 'write'):
+
+        if write:
             try:
                 self.write(filtered_text)
             except Exception as e:
                 print(f"Error writing output: {str(e)}", file=sys.stderr)
-        
+
         try:
             return '\n'.join(filtered_text)
         except UnicodeEncodeError as e:
@@ -403,37 +388,42 @@ class docx_reader:
         dir = self.target_dir + '1353FA_Certificate_of_Service_of_Financial_Declaration.docx'
         
         parseda, parseds, c = self.process_legal_form(dir)
-        print(parseda)
+        print(parseda)        
 
     @exception_wrapper
-    def extract_metadata(filename: str):
-        doc = docx.Document(filename)  # Create a Document object from the Word document file.
-        core_properties = doc.core_properties  # Get the core properties of the document.
-        metadata = {}  # Initialize an empty dictionary to store metadata
-        # Extract core properties
-        for prop in dir(core_properties):  # Iterate over all properties of the core_properties object.
-            if prop.startswith('__'):  # Skip properties starting with double underscores (e.g., __elenent). Not needed
+    def extract_metadata(self, filename: str):
+        doc = docx.Document(filename)
+        core_properties = doc.core_properties
+        metadata = {}
+        for prop in dir(core_properties):
+            if prop.startswith('__'):
                 continue
-            value = getattr(core_properties, prop)  # Get the value of the property.
-            if callable(value):  # Skip callable properties (methods).
+            value = getattr(core_properties, prop)
+            if callable(value):
                 continue
-            if prop == 'created' or prop == 'modified' or prop == 'last_printed':  # Check for datetime properties.
+            if prop == 'created' or prop == 'modified' or prop == 'last_printed':
                 if value:
-                    value = value.strftime('%Y-%m-%d %H:%M:%S')  # Convert datetime to string format.
+                    value = value.strftime('%Y-%m-%d %H:%M:%S')
                 else:
                     value = None
-            metadata[prop] = value  # Store the property and its value in the metadata dictionary.
-        # Extract custom properties (if available).
+            metadata[prop] = value
         try:
-            custom_properties = core_properties.custom_properties  # Get the custom properties (if available).
-            if custom_properties:  # Check if custom properties exist.
-                metadata['custom_properties'] = {}  # Initialize a dictionary to store custom properties.
-                for prop in custom_properties:  # Iterate over custom properties.
-                    metadata['custom_properties'][prop.name] = prop.value  # Store the custom property name and value.
+            custom_properties = core_properties.custom_properties
+            if custom_properties:
+                metadata['custom_properties'] = {}
+                for prop in custom_properties:
+                    metadata['custom_properties'][prop.name] = prop.value
         except AttributeError:
-            # Custom properties not available in this version.
-            pass  # Skip custom properties extraction if the attribute is not available.
+            pass
+
+        for x in metadata:
+            print (x)
+            for y in metadata[x]:
+                print (y, ':', metadata[x][y])
+
+        
         return metadata
+
 
 
     

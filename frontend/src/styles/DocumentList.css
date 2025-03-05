@@ -1,163 +1,52 @@
-/* Global Reset and Box Sizing */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@import "tailwindcss";
 
-/* Body Styling */
-body {
-  font-family: 'Inter', sans-serif; /* Modern sans-serif font */
-  background-color: #f7fafc; /* Light grey background for a clean look */
-  color: #2d3748; /* Dark text color for readability */
-  line-height: 1.6;
-  font-size: 1rem; /* Standard font size */
-}
-
-/* Link Styling */
-a {
-  text-decoration: none;
-  color: #3182ce; /* Blue color for links */
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: #2b6cb0; /* Darker shade of blue for hover state */
-  text-decoration: underline;
-}
-
-/* Standardized Headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Inter', sans-serif; /* Consistent font family for all headings */
-  color: #2d3748; /* Dark text for headings */
-  font-weight: 700; /* Bold for emphasis */
-}
-
-h1 {
-  font-size: 2rem; /* Large size for main headings */
-}
-
-h2 {
-  font-size: 1.5rem; /* Slightly smaller for sub-headings */
-}
-
-h3 {
-  font-size: 1.25rem; /* For smaller section titles */
-}
-
-/* Container Styling */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #ffffff; /* White background for the main content */
-  border-radius: 8px; /* Rounded corners for modern look */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-}
-
-/* Card Styling (For elements like Document Details) */
-.card {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 0.375rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  margin-top: 2rem;
-}
-
-/* Button Styling */
-button {
-  background-color: #3182ce; /* Blue background for buttons */
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #2b6cb0; /* Darker blue on hover */
-}
-
-/* Table Styling */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Table Caption Styling */
-table caption {
-  font-size: 1.125rem;
-  color: #718096; /* Light grey for captions */
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-/* Table Header Styling */
-table th {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #2d3748;
-  padding: 0.75rem;
-  background-color: #edf2f7; /* Soft blue-grey background for headers */
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Table Body Styling */
-table td {
-  padding: 1rem;
-  color: #4a5568; /* Soft grey for table text */
-  border-bottom: 1px solid #e2e8f0; /* Light border for row separation */
-}
-
-table tr:hover {
-  background-color: #f7fafc;
-  transition: background-color 0.3s ease;
-}
-
-/* Table Link Styling */
-table a {
-  color: #3182ce;
-  text-decoration: none;
-}
-
-table a:hover {
-  text-decoration: underline;
-  color: #2b6cb0;
-}
-
-/* Responsive Design (Mobile-friendly) */
-@media (max-width: 768px) {
-  body {
-    font-size: 0.875rem; /* Slightly smaller font size for mobile */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 262 83% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83% 58%;
+    --radius: 0.5rem;
   }
 
-  .container {
-    padding: 1.5rem;
-  }
-
-  h1 {
-    font-size: 1.75rem;
-  }
-
-  table {
-    font-size: 0.875rem;
-  }
-
-  .card {
-    padding: 1rem;
-  }
-
-  button {
-    padding: 0.5rem 1rem;
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 263 75% 63%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 263 75% 25%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 263 75% 63%;
   }
 }
+
+
+
+
