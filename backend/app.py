@@ -1,21 +1,24 @@
 import os, datetime
 import file_utils
 from ollama_connection import Llama
-from file_utils import pdf_reader, docx_reader, LegalFormParser
+from file_utils import docx_reader
 from datetime import datetime
 
-dirname = 'pdf_reader_src\\pdfs\\'
-clio_dir = 'pdf_reader_src\\clio_test_exports\\'
-legal_documents_pdf = 'pdf_reader_src\\legal_documents\\pdf\\'
-legal_documents_fillable = 'pdf_reader_src\\legal_documents\\fillable\\'
+clio_dir = 'clio_test_exports/'
+family_docx = 'family/'
+legal_documents_pdf = 'legal_documents/pdf/'
+legal_documents_fillable = 'legal_documents/fillable/'
+xml_dumps = 'xml/'
 
-model_response_dumps = 'pdf_reader_src\\response_dumps'
+model_response_dumps = 'llm_responses'
+
+DUMPS_DIR = 'C:/Capstone/Capstone_2025/backend/dumps/'
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(CURRENT_DIR) # Capstone_2025
-TARGET_DIR = os.path.join(PARENT_DIR, legal_documents_fillable)
+TARGET_DIR = os.path.join(DUMPS_DIR, legal_documents_fillable)
 
-llama = Llama((os.path.join(PARENT_DIR, model_response_dumps)), 'llama3.2')
+# llama = Llama((os.path.join(PARENT_DIR, model_response_dumps)), 'llama3.2')
 
 METADATA = {
     "/Author": "Jake Quackenbush",
@@ -49,13 +52,17 @@ def test_pdfs():
     # pdf_utils.parse_clio_pdf(pdf_name, True, None)
 
 def test_docx():
-    doc_name = '1353FA_Certificate_of_Service_of_Financial_Declaration.doc'
+    doc_name = '1353FA_Certificate_of_Service_of_Financial_Declaration.docx'
     docx_utils = docx_reader(TARGET_DIR)
-    # print(docx_utils.get_text((TARGET_DIR + doc_name), False))
-    print(docx_utils.extract_metadata((TARGET_DIR + doc_name)))
+    docx_utils.get_text((TARGET_DIR + doc_name), True)
+    # print(docx_utils.extract_metadata((TARGET_DIR + doc_name)))
 
     # file = LegalFormParser()
     # file_utils.process_legal_form(TARGET_DIR + '1353FA_Certificate_of_Service_of_Financial_Declaration.docx')
+    
+    # docx_utils.xml_to_docx('backend\\dumps\\legal_documents\\xml\\1353FA_Certificate_of_Service_of_Financial_Declaration.xml', 'C:\\Capstone\\Capstone_2025\\backend\\dumps\\legal_documents\\fillable\\test_doc.docx')
+
+    docx_utils.replace_fields_with_placeholders(TARGET_DIR + doc_name, TARGET_DIR + 'output.docx')
 
 def main():
     test_docx()

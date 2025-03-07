@@ -1,28 +1,34 @@
 "use client"
 
 import "./styles/DocumentList.css"
+import "./styles/docx-preview.css"
+"use client"
 
 import type React from "react"
 
 import { useEffect, useState, useRef } from "react"
-import { Search, FileText, ExternalLink, Loader2, SortAsc, SortDesc, Download, Clock, FileIcon } from "lucide-react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Search,
+  FileText,
+  ExternalLink,
+  Loader2,
+  Download,
+  Clock,
+  FileIcon,
+  FolderIcon,
+  ChevronRight,
+  ChevronDown,
+  Upload,
+} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { renderAsync } from "docx-preview"
+import { cn } from "@/lib/utils"
+import { FileUploadDialog } from "@/components/file-upload-dialog"
+import { useToast } from "@/components/ui/use-toast"
 
 interface Document {
   id: number
@@ -34,84 +40,179 @@ interface Document {
   size?: string
   content?: string
   previewLoaded?: boolean
+  directory?: string
+}
+
+interface Directory {
+  name: string
+  path: string
+  documents: Document[]
+  subdirectories: Directory[]
+  expanded: boolean
 }
 
 export default function DocumentList() {
+  const [directories, setDirectories] = useState<Directory[]>([])
   const [documents, setDocuments] = useState<Document[]>([])
   const [filteredDocuments, setFilteredDocuments] = useState<Document[]>([])
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null)
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 8
   const [previewLoading, setPreviewLoading] = useState(false)
+  const [uploadDialogOpen, setUploadDialogOpen] = useState(false)
   const docxPreviewRef = useRef<HTMLDivElement>(null)
+  const { toast } = useToast()
 
   useEffect(() => {
-    const fetchDocuments = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch("http://localhost:5000/api/documents")
-        const data = await response.json()
-
-        // Process the data from the backend
-        const processedData = data.map((doc: Document) => {
-          // Extract file extension from title
-          const fileExtension = doc.title.split(".").pop()?.toUpperCase() || ""
-
-          // Set the type based on the file extension
-          const type = fileExtension
-
-          // Add date_added (we don't have this from the backend, so use current date)
-          const date_added = new Date().toLocaleDateString()
-
-          return {
-            ...doc,
-            type,
-            date_added,
-            // We'll set size and content when a document is selected
-            size: "Unknown",
-            content: "Select to view content",
-            previewLoaded: false,
-          }
-        })
-
-        setDocuments(processedData)
-        setFilteredDocuments(processedData)
-      } catch (error) {
-        console.error("Failed to fetch documents:", error)
-        // If API fails, show an empty state instead of mock data
-        setDocuments([])
-        setFilteredDocuments([])
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchDocuments()
   }, [])
 
+  const fetchDocuments = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch("http://localhost:5000/api/documents")
+      const data = await response.json()
+
+      // Process the data from the backend and organize into directories
+      const processedData = data.map((doc: Document) => {
+        // Extract file extension from title
+        const fileExtension = doc.title.split(".").pop()?.toUpperCase() || ""
+
+        // Set the type based on the file extension
+        const type = fileExtension
+
+        // Add date_added (we don't have this from the backend, so use current date)
+        const date_added = new Date().toLocaleDateString()
+
+        // Extract directory from file_path
+        // Assuming file_path is like "/files/dir1/dir2/filename.docx"
+        const pathParts = doc.file_path.split("/")
+        const directory = pathParts.length > 3 ? `/${pathParts.slice(2, -1).join("/")}` : "/"
+
+        return {
+          ...doc,
+          type,
+          date_added,
+          directory,
+          size: "Unknown",
+          content: "Select to view content",
+          previewLoaded: false,
+        }
+      })
+
+      // Organize documents into directory structure
+      const directoryTree: Directory[] = []
+      const rootDocuments: Document[] = []
+
+      // First pass: identify all unique directories
+      const uniqueDirs = new Set<string>()
+      processedData.forEach((doc: Document) => {
+        if (doc.directory && doc.directory !== "/") {
+          // Split the directory path into parts
+          const dirParts = doc.directory.split("/").filter(Boolean)
+          let currentPath = ""
+
+          // Add each level of the path
+          dirParts.forEach((part) => {
+            currentPath += `/${part}`
+            uniqueDirs.add(currentPath)
+          })
+        }
+      })
+
+      // Create directory objects
+      const dirMap = new Map<string, Directory>()
+
+      // Add root directory
+      const rootDir: Directory = {
+        name: "Root",
+        path: "/",
+        documents: [],
+        subdirectories: [],
+        expanded: true,
+      }
+      dirMap.set("/", rootDir)
+      directoryTree.push(rootDir)
+
+      // Create directory objects for each unique directory
+      Array.from(uniqueDirs)
+        .sort()
+        .forEach((dirPath) => {
+          const dirName = dirPath.split("/").pop() || ""
+          const dir: Directory = {
+            name: dirName,
+            path: dirPath,
+            documents: [],
+            subdirectories: [],
+            expanded: false,
+          }
+          dirMap.set(dirPath, dir)
+
+          // Find parent directory
+          const parentPath = dirPath.substring(0, dirPath.lastIndexOf("/")) || "/"
+          const parentDir = dirMap.get(parentPath)
+
+          if (parentDir) {
+            parentDir.subdirectories.push(dir)
+          } else {
+            // If parent not found, add to root
+            directoryTree.push(dir)
+          }
+        })
+
+      // Second pass: assign documents to directories
+      processedData.forEach((doc: Document) => {
+        const dirPath = doc.directory || "/"
+        const dir = dirMap.get(dirPath)
+
+        if (dir) {
+          dir.documents.push(doc)
+        } else {
+          // If directory not found, add to root documents
+          rootDocuments.push(doc)
+        }
+      })
+
+      // Add root documents to root directory
+      if (rootDocuments.length > 0) {
+        const rootDir = dirMap.get("/")
+        if (rootDir) {
+          rootDir.documents.push(...rootDocuments)
+        }
+      }
+
+      setDirectories(directoryTree)
+      setDocuments(processedData)
+      setFilteredDocuments(processedData)
+    } catch (error) {
+      console.error("Failed to fetch documents:", error)
+      setDirectories([])
+      setDocuments([])
+      setFilteredDocuments([])
+
+      toast({
+        title: "Error",
+        description: "Failed to load documents. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     // Filter documents based on search query
-    const filtered = documents.filter(
-      (doc) =>
-        doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doc.description.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
-
-    // Sort documents
-    const sorted = [...filtered].sort((a, b) => {
-      if (sortOrder === "asc") {
-        return a.title.localeCompare(b.title)
-      } else {
-        return b.title.localeCompare(a.title)
-      }
-    })
-
-    setFilteredDocuments(sorted)
-    setCurrentPage(1) // Reset to first page when filtering
-  }, [searchQuery, documents, sortOrder])
+    if (searchQuery) {
+      const filtered = documents.filter(
+        (doc) =>
+          doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          doc.description.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+      setFilteredDocuments(filtered)
+    } else {
+      setFilteredDocuments(documents)
+    }
+  }, [searchQuery, documents])
 
   const handleSelectDocument = async (doc: Document) => {
     setSelectedDocument(doc)
@@ -191,6 +292,12 @@ export default function DocumentList() {
         setSelectedDocument(updatedDoc)
         setDocuments((prevDocs) => prevDocs.map((d) => (d.id === doc.id ? updatedDoc : d)))
         setFilteredDocuments((prevDocs) => prevDocs.map((d) => (d.id === doc.id ? updatedDoc : d)))
+
+        toast({
+          title: "Error",
+          description: "Failed to load document preview.",
+          variant: "destructive",
+        })
       } finally {
         setPreviewLoading(false)
       }
@@ -201,15 +308,50 @@ export default function DocumentList() {
     setSearchQuery(e.target.value)
   }
 
-  const toggleSortOrder = () => {
-    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"))
+  const toggleDirectory = (dirPath: string) => {
+    setDirectories((prevDirs) => {
+      // Create a deep copy of the directory structure
+      const updateDirectoryExpanded = (dirs: Directory[]): Directory[] => {
+        return dirs.map((dir) => {
+          if (dir.path === dirPath) {
+            return { ...dir, expanded: !dir.expanded }
+          } else {
+            return {
+              ...dir,
+              subdirectories: updateDirectoryExpanded(dir.subdirectories),
+            }
+          }
+        })
+      }
+
+      return updateDirectoryExpanded(prevDirs)
+    })
   }
 
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredDocuments.length / itemsPerPage)
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = filteredDocuments.slice(indexOfFirstItem, indexOfLastItem)
+  const handleUploadComplete = async (filename: string) => {
+    toast({
+      title: "Upload Successful",
+      description: `${filename} has been uploaded successfully.`,
+      variant: "default",
+    })
+
+    // Refresh the document list to include the new file
+    await fetchDocuments()
+
+    // Try to retrieve the uploaded file from temporary storage
+    try {
+      const response = await fetch(`http://localhost:5000/retrieve/${filename}`)
+      if (response.ok) {
+        // Find the newly uploaded document in the list
+        const newDoc = documents.find((doc) => doc.title === filename)
+        if (newDoc) {
+          handleSelectDocument(newDoc)
+        }
+      }
+    } catch (error) {
+      console.error("Error retrieving uploaded file:", error)
+    }
+  }
 
   const getDocumentTypeColor = (type = "") => {
     switch (type.toUpperCase()) {
@@ -238,6 +380,52 @@ export default function DocumentList() {
     return `http://localhost:5000${filePath}`
   }
 
+  // Recursive function to render directory tree
+  const renderDirectoryTree = (directories: Directory[], level = 0) => {
+    return directories.map((dir) => (
+      <div key={dir.path} className="directory-tree-item">
+        <div
+          className={cn(
+            "flex items-center py-1.5 px-2 rounded-md cursor-pointer hover:bg-violet-50 dark:hover:bg-violet-900/20",
+            level > 0 && "ml-4",
+          )}
+          onClick={() => toggleDirectory(dir.path)}
+        >
+          {dir.expanded ? (
+            <ChevronDown className="h-4 w-4 mr-1 text-violet-600 dark:text-violet-400" />
+          ) : (
+            <ChevronRight className="h-4 w-4 mr-1 text-violet-600 dark:text-violet-400" />
+          )}
+          <FolderIcon className="h-4 w-4 mr-2 text-violet-600 dark:text-violet-400" />
+          <span className="font-medium">{dir.name}</span>
+          <span className="ml-2 text-xs text-muted-foreground">({dir.documents.length})</span>
+        </div>
+
+        {dir.expanded && (
+          <div className="ml-6">
+            {/* Render documents in this directory */}
+            {dir.documents.map((doc) => (
+              <div
+                key={doc.id}
+                className={cn(
+                  "flex items-center py-1.5 px-2 rounded-md cursor-pointer hover:bg-violet-50 dark:hover:bg-violet-900/20",
+                  selectedDocument?.id === doc.id && "bg-violet-100 dark:bg-violet-900/30",
+                )}
+                onClick={() => handleSelectDocument(doc)}
+              >
+                {getDocumentTypeIcon(doc.type)}
+                <span className="ml-2 truncate">{doc.title}</span>
+              </div>
+            ))}
+
+            {/* Render subdirectories */}
+            {renderDirectoryTree(dir.subdirectories, level + 1)}
+          </div>
+        )}
+      </div>
+    ))
+  }
+
   return (
     <div className="container mx-auto p-4 max-w-7xl">
       <div className="flex flex-col gap-6">
@@ -247,6 +435,15 @@ export default function DocumentList() {
           </h1>
 
           <div className="flex items-center gap-2 w-full md:w-auto">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setUploadDialogOpen(true)}
+              className="bg-violet-50 hover:bg-violet-100 text-violet-700 dark:bg-violet-900/20 dark:hover:bg-violet-900/30 dark:text-violet-300"
+              title="Upload Document"
+            >
+              <Upload className="h-4 w-4" />
+            </Button>
             <div className="relative w-full md:w-64">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -257,263 +454,35 @@ export default function DocumentList() {
                 onChange={handleSearch}
               />
             </div>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleSortOrder}
-              title={sortOrder === "asc" ? "Sort Descending" : "Sort Ascending"}
-            >
-              {sortOrder === "asc" ? <SortAsc className="h-4 w-4" /> : <SortDesc className="h-4 w-4" />}
-            </Button>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-6">
-          {/* Left Column - Document List */}
+          {/* Left Column - Directory Tree */}
           <div className="flex flex-col">
-            <Tabs defaultValue="list" className="w-full">
-              <TabsList className="mb-4 bg-violet-50 dark:bg-violet-950/30">
-                <TabsTrigger
-                  value="list"
-                  className="data-[state=active]:bg-violet-100 data-[state=active]:text-violet-900 dark:data-[state=active]:bg-violet-900/30 dark:data-[state=active]:text-violet-100"
-                >
-                  List View
-                </TabsTrigger>
-                <TabsTrigger
-                  value="grid"
-                  className="data-[state=active]:bg-violet-100 data-[state=active]:text-violet-900 dark:data-[state=active]:bg-violet-900/30 dark:data-[state=active]:text-violet-100"
-                >
-                  Grid View
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="list" className="space-y-4">
-                <Card className="border-violet-200 dark:border-violet-800/30">
-                  <CardContent className="p-0">
-                    {loading ? (
-                      <div className="flex justify-center items-center h-64">
-                        <Loader2 className="h-8 w-8 animate-spin text-violet-600 dark:text-violet-400" />
-                        <span className="ml-2 text-lg">Loading documents...</span>
-                      </div>
-                    ) : (
-                      <div className="rounded-md border border-violet-200 dark:border-violet-800/30">
-                        <Table>
-                          <TableHeader className="bg-violet-50 dark:bg-violet-950/30">
-                            <TableRow className="hover:bg-violet-100/50 dark:hover:bg-violet-900/20">
-                              <TableHead>Type</TableHead>
-                              <TableHead>Title</TableHead>
-                              <TableHead className="hidden md:table-cell">Date</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {currentItems.length === 0 ? (
-                              <TableRow>
-                                <TableCell colSpan={3} className="text-center h-24 text-muted-foreground">
-                                  No documents found matching your search.
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              currentItems.map((doc) => (
-                                <TableRow
-                                  key={doc.id}
-                                  className={`cursor-pointer transition-colors hover:bg-violet-50 dark:hover:bg-violet-950/20 ${
-                                    selectedDocument?.id === doc.id ? "bg-violet-100 dark:bg-violet-900/30" : ""
-                                  }`}
-                                  onClick={() => handleSelectDocument(doc)}
-                                >
-                                  <TableCell>
-                                    <Badge className={`${getDocumentTypeColor(doc.type)}`}>{doc.type}</Badge>
-                                  </TableCell>
-                                  <TableCell className="font-medium">
-                                    <div className="flex items-center gap-2">
-                                      {getDocumentTypeIcon(doc.type)}
-                                      <span className="truncate max-w-[180px]">{doc.title}</span>
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="hidden md:table-cell">{doc.date_added}</TableCell>
-                                </TableRow>
-                              ))
-                            )}
-                          </TableBody>
-                        </Table>
-                      </div>
-                    )}
-                  </CardContent>
-                  {!loading && totalPages > 1 && (
-                    <CardFooter className="flex justify-center py-4">
-                      <Pagination>
-                        <PaginationContent>
-                          <PaginationItem>
-                            <PaginationPrevious
-                              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                              className={`${currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"} text-violet-600 dark:text-violet-400`}
-                            />
-                          </PaginationItem>
-
-                          {Array.from({ length: Math.min(totalPages, 5) }).map((_, i) => {
-                            let pageNumber = i + 1
-
-                            // Adjust page numbers for pagination with ellipsis
-                            if (totalPages > 5 && currentPage > 3) {
-                              if (i === 0) {
-                                pageNumber = 1
-                              } else if (i === 1) {
-                                return (
-                                  <PaginationItem key="ellipsis-start">
-                                    <PaginationEllipsis />
-                                  </PaginationItem>
-                                )
-                              } else {
-                                pageNumber = Math.min(currentPage + i - 2, totalPages)
-                              }
-                            }
-
-                            return (
-                              <PaginationItem key={pageNumber}>
-                                <PaginationLink
-                                  isActive={currentPage === pageNumber}
-                                  onClick={() => setCurrentPage(pageNumber)}
-                                  className={
-                                    currentPage === pageNumber ? "bg-violet-600 text-white dark:bg-violet-800" : ""
-                                  }
-                                >
-                                  {pageNumber}
-                                </PaginationLink>
-                              </PaginationItem>
-                            )
-                          })}
-
-                          <PaginationItem>
-                            <PaginationNext
-                              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                              className={`${currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"} text-violet-600 dark:text-violet-400`}
-                            />
-                          </PaginationItem>
-                        </PaginationContent>
-                      </Pagination>
-                    </CardFooter>
-                  )}
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="grid" className="space-y-4">
+            <Card className="border-violet-200 dark:border-violet-800/30">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg flex items-center">
+                  <FolderIcon className="h-5 w-5 mr-2 text-violet-600 dark:text-violet-400" />
+                  Directory Structure
+                </CardTitle>
+                <CardDescription>Browse documents by directory</CardDescription>
+              </CardHeader>
+              <CardContent>
                 {loading ? (
                   <div className="flex justify-center items-center h-64">
                     <Loader2 className="h-8 w-8 animate-spin text-violet-600 dark:text-violet-400" />
                     <span className="ml-2 text-lg">Loading documents...</span>
                   </div>
+                ) : directories.length === 0 ? (
+                  <div className="text-center py-12 text-muted-foreground">No directories found.</div>
                 ) : (
-                  <>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {currentItems.length === 0 ? (
-                        <div className="col-span-full text-center py-12 text-muted-foreground">
-                          No documents found matching your search.
-                        </div>
-                      ) : (
-                        currentItems.map((doc) => (
-                          <Card
-                            key={doc.id}
-                            className={`cursor-pointer transition-all hover:shadow-md border-violet-200 dark:border-violet-800/30 ${
-                              selectedDocument?.id === doc.id
-                                ? "ring-2 ring-violet-500 dark:ring-violet-400 bg-violet-50 dark:bg-violet-900/20"
-                                : ""
-                            }`}
-                            onClick={() => handleSelectDocument(doc)}
-                          >
-                            <CardHeader className="pb-2">
-                              <div className="flex justify-between items-start">
-                                <Badge className={`${getDocumentTypeColor(doc.type)}`}>{doc.type}</Badge>
-                                <span className="text-sm text-muted-foreground">{doc.date_added}</span>
-                              </div>
-                              <CardTitle className="text-lg mt-2 flex items-center gap-2">
-                                {getDocumentTypeIcon(doc.type)}
-                                <span className="truncate">{doc.title}</span>
-                              </CardTitle>
-                              <CardDescription className="line-clamp-2 h-10">{doc.description}</CardDescription>
-                            </CardHeader>
-                            <CardFooter className="pt-2 flex justify-end">
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                asChild
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                }}
-                              >
-                                <a
-                                  href={getFileUrl(doc.file_path)}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
-                                >
-                                  <ExternalLink className="h-4 w-4 mr-1" />
-                                  Open
-                                </a>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        ))
-                      )}
-                    </div>
-
-                    {totalPages > 1 && (
-                      <div className="flex justify-center py-4">
-                        <Pagination>
-                          <PaginationContent>
-                            <PaginationItem>
-                              <PaginationPrevious
-                                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                                className={`${currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"} text-violet-600 dark:text-violet-400`}
-                              />
-                            </PaginationItem>
-
-                            {Array.from({ length: Math.min(totalPages, 5) }).map((_, i) => {
-                              let pageNumber = i + 1
-
-                              // Adjust page numbers for pagination with ellipsis
-                              if (totalPages > 5 && currentPage > 3) {
-                                if (i === 0) {
-                                  pageNumber = 1
-                                } else if (i === 1) {
-                                  return (
-                                    <PaginationItem key="ellipsis-start">
-                                      <PaginationEllipsis />
-                                    </PaginationItem>
-                                  )
-                                } else {
-                                  pageNumber = Math.min(currentPage + i - 2, totalPages)
-                                }
-                              }
-
-                              return (
-                                <PaginationItem key={pageNumber}>
-                                  <PaginationLink
-                                    isActive={currentPage === pageNumber}
-                                    onClick={() => setCurrentPage(pageNumber)}
-                                    className={
-                                      currentPage === pageNumber ? "bg-violet-600 text-white dark:bg-violet-800" : ""
-                                    }
-                                  >
-                                    {pageNumber}
-                                  </PaginationLink>
-                                </PaginationItem>
-                              )
-                            })}
-
-                            <PaginationItem>
-                              <PaginationNext
-                                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                                className={`${currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"} text-violet-600 dark:text-violet-400`}
-                              />
-                            </PaginationItem>
-                          </PaginationContent>
-                        </Pagination>
-                      </div>
-                    )}
-                  </>
+                  <ScrollArea className="h-[calc(100vh-300px)] pr-4">
+                    <div className="directory-tree">{renderDirectoryTree(directories)}</div>
+                  </ScrollArea>
                 )}
-              </TabsContent>
-            </Tabs>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Right Column - Document Preview */}
@@ -550,7 +519,7 @@ export default function DocumentList() {
                   <CardDescription>{selectedDocument.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="p-0 flex-grow">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border-b">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border-b">
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <div>
@@ -563,6 +532,13 @@ export default function DocumentList() {
                       <div>
                         <p className="text-sm font-medium text-muted-foreground">Type</p>
                         <p>{selectedDocument.type}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <FolderIcon className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground">Directory</p>
+                        <p className="truncate">{selectedDocument.directory || "/"}</p>
                       </div>
                     </div>
                   </div>
@@ -611,7 +587,7 @@ export default function DocumentList() {
                   </div>
                   <h3 className="text-xl font-semibold mb-2">No Document Selected</h3>
                   <p className="text-muted-foreground max-w-md">
-                    Select a document from the list on the left to view its details here.
+                    Select a document from the directory tree on the left to view its details here.
                   </p>
                 </CardContent>
               </Card>
@@ -619,6 +595,13 @@ export default function DocumentList() {
           </div>
         </div>
       </div>
+
+      {/* File Upload Dialog */}
+      <FileUploadDialog
+        open={uploadDialogOpen}
+        onOpenChange={setUploadDialogOpen}
+        onUploadComplete={handleUploadComplete}
+      />
     </div>
   )
 }
