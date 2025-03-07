@@ -202,7 +202,7 @@ cython_debug/
 # Custom
 Test_App-python/
 
-backend/dumps
+backend/dumps/llm_responses
 backend/configs
 backend/pyvenv.cfg
 
