@@ -1,7 +1,7 @@
 "use client"
 
 import "./styles/DocumentList.css"
-import "./styles/docx-preview.css"
+// import "./styles/docx-preview.css"
 "use client"
 
 import type React from "react"

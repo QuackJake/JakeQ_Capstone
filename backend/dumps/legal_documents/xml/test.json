@@ -1,0 +1,252 @@
+{
+    "identified_headers": [
+        "Check your email. \n\n\n\n\n\n\nYou will receive information and documents at this email address.",
+        "In the District Court of Utah",
+        "__________ Judicial District ________________ County",
+        "Court Address ______________________________________________________",
+        "Certificate of Service of Financial Declaration",
+        "Person\u2019s Name",
+        "Service Method",
+        "Service Address",
+        "Service Date",
+        "Petitioner or Respondent",
+        "Attorney or Licensed Paralegal Practitioner of record\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n(if applicable)"
+    ],
+    "checkboxes": [
+        {
+            "label": "Petitioner",
+            "context": "I am  [  ]  Petitioner [  ]  Respondent",
+            "text": "[  ]  Petitioner"
+        },
+        {
+            "label": "Respondent",
+            "context": "[  ]  Petitioner [  ]  Respondent [  ]  Petitioner",
+            "text": "[  ]  Respondent"
+        },
+        {
+            "label": "Petitioner",
+            "context": "[  ]  Respondent [  ]  Petitioner \u2019s Attorney",
+            "text": "[  ]  Petitioner"
+        },
+        {
+            "label": "Respondent",
+            "context": "\u2019s Attorney [  ]  Respondent \u2019s Attorney",
+            "text": "[  ]  Respondent"
+        },
+        {
+            "label": "Petitioner",
+            "context": ") [  ]  Petitioner \u2019s Licensed Paralegal Practitioner",
+            "text": "[  ]  Petitioner"
+        },
+        {
+            "label": "Respondent",
+            "context": "\u2019s Licensed Paralegal Practitioner [  ]  Respondent \u2019s Licensed Paralegal Practitioner",
+            "text": "[  ]  Respondent"
+        },
+        {
+            "label": "the Marriage of",
+            "context": "Section: Court Address ______________________________________________________",
+            "text": "[  ]  the Marriage of"
+        },
+        {
+            "label": "the Children of",
+            "context": "(for a divorce with or without children, annulment, separate maintenance, or temporary separation...",
+            "text": "[  ]  the Children of"
+        },
+        {
+            "label": "the Parentage of the Children of",
+            "context": "(to establish custody, parent-time or child support) [  ]  the Parentage of the Children of  (for...",
+            "text": "[  ]  the Parentage of the Children of"
+        },
+        {
+            "label": "Mail",
+            "context": "Section: Service Method",
+            "text": "[  ]  Mail"
+        },
+        {
+            "label": "Hand Delivery",
+            "context": "Section: Service Address",
+            "text": "[  ]  Hand Delivery"
+        },
+        {
+            "label": "E-filed",
+            "context": "Section: Service Date",
+            "text": "[  ]  E-filed"
+        },
+        {
+            "label": "Unlabeled checkbox",
+            "context": "/MyCase [  ]   Email",
+            "text": "[  ]"
+        },
+        {
+            "label": "Left at business",
+            "context": "Email [  ]  Left at business  (With person in charge or in receptacle for deliveries.)",
+            "text": "[  ]  Left at business"
+        },
+        {
+            "label": "Left at home",
+            "context": "(With person in charge or in receptacle for deliveries.) [  ]  Left at home  (With person of suit...",
+            "text": "[  ]  Left at home"
+        },
+        {
+            "label": "Mail",
+            "context": "(With person of suitable age and discretion residing there.) [  ]  Mail [  ]  Hand Delivery",
+            "text": "[  ]  Mail"
+        },
+        {
+            "label": "Hand Delivery",
+            "context": "[  ]  Mail [  ]  Hand Delivery [  ]  E-filed",
+            "text": "[  ]  Hand Delivery"
+        },
+        {
+            "label": "E-filed",
+            "context": "[  ]  Hand Delivery [  ]  E-filed /MyCase",
+            "text": "[  ]  E-filed"
+        },
+        {
+            "label": "Email",
+            "context": "/MyCase [  ]  Email [  ]  Left at business",
+            "text": "[  ]  Email"
+        },
+        {
+            "label": "Left at business",
+            "context": "[  ]  Email [  ]  Left at business  (With person in charge or in receptacle for deliveries.)",
+            "text": "[  ]  Left at business"
+        },
+        {
+            "label": "Left at home",
+            "context": "(With person in charge or in receptacle for deliveries.) [  ]  Left at home  (With person of suit...",
+            "text": "[  ]  Left at home"
+        },
+        {
+            "label": "Mail",
+            "context": "(With person of suitable age and discretion residing there.) [  ]  Mail [  ]  Hand Delivery",
+            "text": "[  ]  Mail"
+        },
+        {
+            "label": "Hand Delivery",
+            "context": "[  ]  Mail [  ]  Hand Delivery [  ]  E-filed",
+            "text": "[  ]  Hand Delivery"
+        },
+        {
+            "label": "E-filed",
+            "context": "[  ]  Hand Delivery [  ]  E-filed /MyCase",
+            "text": "[  ]  E-filed"
+        },
+        {
+            "label": "Email",
+            "context": "/MyCase [  ]  Email  [  ]  Left at business",
+            "text": "[  ]  Email"
+        },
+        {
+            "label": "Left at business",
+            "context": "[  ]  Email  [  ]  Left at business  (With person in charge or in receptacle for deliveries.)",
+            "text": "[  ]  Left at business"
+        },
+        {
+            "label": "Left at home",
+            "context": "(With person in charge or in receptacle for deliveries.) [  ]  Left at home  (With person of suit...",
+            "text": "[  ]  Left at home"
+        }
+    ],
+    "underscore_fields": [
+        {
+            "label": "Unlabeled field",
+            "length": 3,
+            "context": "(Utah Bar #: ___ ____",
+            "text": "___"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 4,
+            "context": "___ ____ ___",
+            "text": "____"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 3,
+            "context": "____ ___ )",
+            "text": "___"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 3,
+            "context": "(Utah Bar #: ___ ____",
+            "text": "___"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 4,
+            "context": "___ ____ ___",
+            "text": "____"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 3,
+            "context": "____ ___ )",
+            "text": "___"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 10,
+            "context": "Section: In the District Court of Utah",
+            "text": "__________ Judicial District ________________ County"
+        },
+        {
+            "label": "__________ Judicial District",
+            "length": 16,
+            "context": "Section: In the District Court of Utah",
+            "text": "__________ Judicial District ________________ County"
+        },
+        {
+            "label": "Court Address",
+            "length": 54,
+            "context": "Section: In the District Court of Utah",
+            "text": "Court Address ______________________________________________________"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 36,
+            "context": "(for a paternity case) ____________________________________ (name of Petitioner)",
+            "text": "____________________________________"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 36,
+            "context": "and  ____________________________________ (name of Respondent)",
+            "text": "____________________________________"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 44,
+            "context": "(name of Respondent) ____________________________________________ Other parties (if any)",
+            "text": "____________________________________________"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 31,
+            "context": "Section: Certificate of Service of Financial Declaration",
+            "text": "_______________________________"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 31,
+            "context": "Case Number _______________________________ Judge",
+            "text": "_______________________________"
+        },
+        {
+            "label": "Unlabeled field",
+            "length": 31,
+            "context": "Judge _______________________________ Commissioner",
+            "text": "_______________________________"
+        },
+        {
+            "label": "Signed at",
+            "length": 54,
+            "context": "I declare under criminal penalty under the law of Utah that everything stated in this document is...",
+            "text": "Signed at ______________________________________________________ (city, and state or country)."
+        }
+    ],
+    "table_fields": [],
+    "other_fields": []
+}

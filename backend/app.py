@@ -3,22 +3,59 @@ import file_utils
 from ollama_connection import Llama
 from file_utils import docx_reader
 from datetime import datetime
+from pathlib import Path
 
-clio_dir = 'clio_test_exports/'
-family_docx = 'family/'
-legal_documents_pdf = 'legal_documents/pdf/'
-legal_documents_fillable = 'legal_documents/fillable/'
-xml_dumps = 'xml/'
+backend_dir = Path(__file__).parent.resolve()
+
+parent_dir = backend_dir.parent
+frontend_dir = parent_dir / "frontend"
+backend_dir = parent_dir / "backend"
+
+dumps_dir = backend_dir / "dumps"
+
+clio_exports = dumps_dir / 'clio_test_exports'
+family_docx = dumps_dir / 'family'
+legal_documents = dumps_dir / 'legal_documents'
+
+fillable_dir = legal_documents / 'fillable'
+pdf_dir = legal_documents / 'fpdf'
+xml_dumps = legal_documents / 'xml'
 
 model_response_dumps = 'llm_responses'
 
-DUMPS_DIR = 'C:/Capstone/Capstone_2025/backend/dumps/'
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(CURRENT_DIR) # Capstone_2025
-TARGET_DIR = os.path.join(DUMPS_DIR, legal_documents_fillable)
+TARGET_DIR = os.path.join(fillable_dir)
 
 # llama = Llama((os.path.join(PARENT_DIR, model_response_dumps)), 'llama3.2')
+
+# for item in list(dumps_dir.glob("*.docx")):
+#     print(item)
+
+# frontend_str = str(frontend_dir)
+# print(frontend_str)
+
+# p = Path('.')
+
+# [x for x in p.iterdir() if x.is_dir()]
+
+
+
+def error_wrapper(wrapped_function):
+    def _wrapper(*args, **kwargs):
+        try:
+            path = Path(args[0])
+            if not path.exists():
+                raise FileNotFoundError(f"The specified file or directory does not exist: {args[0]}")
+            result = wrapped_function(*args, **kwargs)
+            return result
+        except FileNotFoundError as e:
+            print(f"File/Directory error: {e}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    return _wrapper
+
 
 METADATA = {
     "/Author": "Jake Quackenbush",
@@ -31,28 +68,15 @@ METADATA = {
     "/Creator": "PDFMetadataUpdater",
     "/CustomField": "Custom Value"
 }
+
 def print_dir_tree():
     print(f'Parent Directory: {PARENT_DIR}')
     print(f'Current Directory: {CURRENT_DIR}')
     print(f'Target Directory: {TARGET_DIR}')
     print(f"Target directory contents: {os.listdir(TARGET_DIR)}")
 
-def test_pdfs():
-    pdf_name = '1102FA_Stipulated_Motion.pdf'
-    pdf_utils = pdf_reader(TARGET_DIR)
-    pdf_utils.write_text_to_file(pdf_name, None, False, 2)
-
-    pdf_text = ''.join(pdf_utils.extract_text_from_pages(pdf_name, True, None))
-    print(pdf_text)
-
-    pdf_utils.pdf_diagnostic(pdf_name)
-
-    # llama.test(pdf_text)
-    # pdf_utils.update_metadata(pdf_name, metadata_template)
-    # pdf_utils.parse_clio_pdf(pdf_name, True, None)
-
 def test_docx():
-    doc_name = '1353FA_Certificate_of_Service_of_Financial_Declaration.docx'
+    doc_name = '/1353FA_Certificate_of_Service_of_Financial_Declaration.docx'
     docx_utils = docx_reader(TARGET_DIR)
     docx_utils.get_text((TARGET_DIR + doc_name), True)
     # print(docx_utils.extract_metadata((TARGET_DIR + doc_name)))
@@ -62,7 +86,7 @@ def test_docx():
     
     # docx_utils.xml_to_docx('backend\\dumps\\legal_documents\\xml\\1353FA_Certificate_of_Service_of_Financial_Declaration.xml', 'C:\\Capstone\\Capstone_2025\\backend\\dumps\\legal_documents\\fillable\\test_doc.docx')
 
-    docx_utils.replace_fields_with_placeholders(TARGET_DIR + doc_name, TARGET_DIR + 'output.docx')
+    # docx_utils.replace_fields_with_placeholders(TARGET_DIR + doc_name, TARGET_DIR + 'output.docx')
 
 def main():
     test_docx()
