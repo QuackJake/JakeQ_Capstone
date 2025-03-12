@@ -1,6 +1,6 @@
 # END USER LICENSE AGREEMENT (EULA)
 
-This End User License Agreement ("Agreement") is a legal agreement between you ("User," "Licensee," or "You") and [Your Company Name] ("Company," "Licensor," or "We") for the use of [Software Name] and any related documentation ("Software"). By installing, accessing, or using the Software, you acknowledge that you have read this Agreement, understand it, and agree to be bound by its terms. If you do not agree to the terms of this Agreement, do not install, access, or use the Software.
+This End User License Agreement ("Agreement") is a legal agreement between you ("User," "Licensee," or "You") and QuackStack Solutions LLC ("Company," "Licensor," or "We") for the use of "Case Stream" and any related documentation ("Software"). By installing, accessing, or using the Software, you acknowledge that you have read this Agreement, understand it, and agree to be bound by its terms. If you do not agree to the terms of this Agreement, do not install, access, or use the Software.
 
 ## 1. LICENSE GRANT
 
@@ -32,7 +32,7 @@ g) Use the Software to develop competing products or services.
 
 ## 3. OWNERSHIP AND INTELLECTUAL PROPERTY
 
-a) **Ownership**: The Software, including but not limited to all copyrights, patents, trademarks, trade secrets, and other intellectual property rights, is owned by the Company and is protected by [Your Jurisdiction] and international copyright and other intellectual property laws.
+a) **Ownership**: The Software, including but not limited to all copyrights, patents, trademarks, trade secrets, and other intellectual property rights, is owned by the Company and is protected by United States and international copyright and other intellectual property laws.
 
 b) **Reservation of Rights**: All rights not expressly granted to you in this Agreement are reserved by the Company. You acknowledge that you acquire no ownership interest in the Software, or in any related intellectual property rights.
 
@@ -128,13 +128,13 @@ You may not assign or transfer this Agreement or any rights or obligations hereu
 
 For questions regarding this Agreement or to contact the Company for any other reason, please write to:
 
-[Your Company Name]
-[Address]
-[City, State/Province, ZIP/Postal Code]
-[Country]
-[Email Address]
-[Phone Number]
+QuackStack Solutions LLC
+[REDACTED]
+[REDACTED] Utah,[REDACTED]
+United States of America
+QuackStackSolutions@gmail.com
+[REDACTED]
 
 By using the Software, you acknowledge that you have read, understood, and agree to be bound by this Agreement.
 
-Last Updated: [Date]
+Last Updated: 3/12/2025
